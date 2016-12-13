@@ -21,8 +21,6 @@ Plot geojson object
 plot(get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1'))
 plot(get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5'))
 
-
-
 }
 \seealso{
 \code{\link{get_seismic_data}},

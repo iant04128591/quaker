@@ -17,13 +17,16 @@ Transforms geojson seismic object to continency table day bay magnitude
 }
 \examples{
 data <- get_freq_grp_by_day_mag(get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1'))
+data
 data <- get_freq_grp_by_day_mag(get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5'))
+data
+
 }
 \seealso{
 \code{\link{get_seismic_data}},
  \code{\link{fit_quaker}},
  \code{\link{flatten_to_table}},
  \code{\link{get_freq_grp_by_country_mag}},
- \code{\link{plot.seismic_geojson}}
+ \code{\link{plot}}
 }
 

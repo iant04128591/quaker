@@ -1,33 +1,50 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
+library(leaflet)
 library(shiny)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-  
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotOutput("distPlot")
-    )
+# Choices for drop-downs
+time_period <- c(
+  "In The last Hour" = "PAST_HOUR",
+  "In The last Day" = "PAST_DAY",
+  "In The last Week" = "PAST_WEEK",
+  "In The last Month" = "PAST_MONTH"
+)
+
+magnitude <- c(
+  "Greater than 0" = "all",
+  "Greater than 1" = "1.0",
+  "Greater than 2.5" = "2.5",
+  "Greater than 4.5" = "4.5"
+)
+
+navbarPage("Quaker - Seimic Activity Monitor", id="nav",
+
+  tabPanel("Interactive map",
+    div(class="outer",
+      tags$head(
+        # Include  CSS
+        includeCSS("styles.css")
+      ),
+
+      leafletOutput("map", width = "100%", height = "600px"),
+
+      absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+                    draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+                    width = 330, height = "auto",
+
+                    h2("Filters"),
+
+                    selectInput("timePeriodId", "Time Period", time_period, selected = "PAST_WEEK"),
+                    selectInput("magnitude", "Magnitude", magnitude, selected = "2.5")
+                    )
+      )
+    ,tags$div(id="cite",
+               'Data sourced from ', tags$em('United States Geological Survey')
+      )
   )
-))
+  ,
+
+  tabPanel("Raw Data explorer",
+    DT::dataTableOutput("rawData")
+  ),
+  conditionalPanel("false", icon("crosshair"))
+)

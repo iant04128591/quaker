@@ -18,13 +18,15 @@ Fit a Logisitc regression to the seismic data and anova analysis of fit
 \examples{
 
 data <- fit_quaker(get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1'))
+data
 data <- fit_quaker(get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5'))
+data
 }
 \seealso{
 \code{\link{get_seismic_data}},
  \code{\link{flatten_to_table}},
  \code{\link{get_freq_grp_by_country_mag}},
  \code{\link{get_freq_grp_by_day_mag}},
- \code{\link{plot.seismic_geojson}}
+ \code{\link{plot}}
 }
 

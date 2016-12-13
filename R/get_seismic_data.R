@@ -14,12 +14,13 @@
 #'  \code{\link{flatten_to_table}},
 #'  \code{\link{get_freq_grp_by_country_mag}},
 #'  \code{\link{get_freq_grp_by_day_mag}},
-#'  \code{\link{plot.seismic_geojson}}
+#'  \code{\link{plot}}
 #' @examples
 #'
 #' data <- get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1')
+#' str(data)
 #' data <- get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5')
-#
+#' str(data)
 get_seismic_data <- function(timeFrame = c('PAST_HOUR','PAST_DAY','PAST_WEEK','PAST_MONTH'),
                            minMagnitude = c('all','1.0','2.5','4.5')){
   #get time frame argument value
@@ -47,12 +48,4 @@ get_seismic_data <- function(timeFrame = c('PAST_HOUR','PAST_DAY','PAST_WEEK','P
   class(seismic.geojson) <- 'seismic_geojson'
   return(seismic.geojson)
 }
-
-. = NULL
-count = NULL
-country = NULL
-day = NULL
-mag = NULL
-magnitude = NULL
-n = NULL
-place = NULL
+if(getRversion() >= "2.15.1") utils::globalVariables(c('n','n()','.','count','country','day','mag','magnitude','place'))

@@ -17,13 +17,16 @@ flatten geojson object to data table with must salient covariates
 }
 \examples{
 data <- flatten_to_table(get_seismic_data(timeFrame = 'PAST_DAY', minMagnitude = 'all'))
+data
 data <- flatten_to_table(get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1'))
+data
 data <- flatten_to_table(get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5'))
+data
 }
 \seealso{
 \code{\link{get_seismic_data}},
  \code{\link{fit_quaker}},
- \code{\link{plot.seismic_geojson}},
+ \code{\link{plot}},
  \code{\link{get_freq_grp_by_country_mag}},
  \code{\link{get_freq_grp_by_day_mag}}
 }

@@ -1,26 +1,32 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
+library(leaflet)
 library(shiny)
+library(dplyr)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
-   
-  output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
+shinyServer(function(input, output, session) {
+
+  geoJson <- reactive({
+    x <- get_seismic_data(timeFrame = input$timePeriodId, minMagnitude = input$magnitude)
+    x
   })
-  
+
+  output$map <- renderLeaflet({
+      x <- geoJson()
+      plot(x)
+  })
+
+  output$rawData <- DT::renderDataTable({
+
+    x <- flatten_to_table(geoJson())
+
+    #get dataframe in correct format for rendering
+    df = x %>% mutate(
+      time = as.POSIXct(time/1000, origin="1970-01-01"),
+      place  = paste('<a href="',url,'">',place,'</a>', sep=""),
+      `tsunami risk` = ifelse(tsunami == 0,'No','Yes')
+    ) %>% select(place, time, longtitude, latitude, depth, magnitude, `tsunami risk`)
+
+    DT::datatable(df, options = list(pageLength=20), escape = FALSE)
+  })
+
 })

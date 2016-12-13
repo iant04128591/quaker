@@ -21,13 +21,15 @@ Get geojson object from USGS
 \examples{
 
 data <- get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1')
+str(data)
 data <- get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5')
+str(data)
 }
 \seealso{
 \code{\link{fit_quaker}},
  \code{\link{flatten_to_table}},
  \code{\link{get_freq_grp_by_country_mag}},
  \code{\link{get_freq_grp_by_day_mag}},
- \code{\link{plot.seismic_geojson}}
+ \code{\link{plot}}
 }
 

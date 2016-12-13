@@ -14,12 +14,14 @@
 #'  \code{\link{fit_quaker}},
 #'  \code{\link{flatten_to_table}},
 #'  \code{\link{get_freq_grp_by_country_mag}},
-#'  \code{\link{plot.seismic_geojson}}
+#'  \code{\link{plot}}
 #'
 #' @examples
 #' data <- get_freq_grp_by_day_mag(get_seismic_data(timeFrame = 'PAST_WEEK', minMagnitude = '1'))
+#' data
 #' data <- get_freq_grp_by_day_mag(get_seismic_data(timeFrame = 'PAST_MONTH', minMagnitude = '2.5'))
-#
+#' data
+#'
 get_freq_grp_by_day_mag <- function(seismic.geojson.obj){
 
   data <- seismic.geojson.obj
@@ -36,12 +38,4 @@ get_freq_grp_by_day_mag <- function(seismic.geojson.obj){
   return(df.magnitudeByDay)
 }
 
-
-. = NULL
-count = NULL
-country = NULL
-day = NULL
-mag = NULL
-magnitude = NULL
-n = function(){}
-place = NULL
+if(getRversion() >= "2.15.1") utils::globalVariables(c('n','n()','.','count','country','day','mag','magnitude','place'))
